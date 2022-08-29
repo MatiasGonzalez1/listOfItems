@@ -30,12 +30,16 @@
 
 let form = document.getElementById('formAgregar');
 let lista = document.getElementById('items');
+let filtro = document.getElementById('filtro');
 
 //evento submit del formulario
 form.addEventListener('submit', agregarItem);
 
 //evento click de la lista
 lista.addEventListener('click', eliminarItem);
+
+//evento del teclado para el campo de filtro
+filtro.addEventListener('keyup', filtrarItems);
 
 //funcion para agregar un item a la lista
 function agregarItem(e){
@@ -63,4 +67,18 @@ if(e.target.classList.contains('eliminar')){
     lista.removeChild(li);
     }
 }
+}
+
+//funcion para filtrar un elemento en la lista
+function filtrarItems(e){
+    let texto = e.target.value.toLowerCase();
+    let items = lista.getElementsByTagName('li');
+    Array.from(items).forEach(function(item){
+        let itemNombre = item.firstChild.textContent;
+        if(itemNombre.toLocaleLowerCase().indexOf(texto) != -1){
+            item.style.display = 'block';
+        }else{
+            item.style.display = 'none';
+        }
+    })
 }
